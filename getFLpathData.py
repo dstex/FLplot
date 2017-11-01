@@ -45,9 +45,12 @@ def getFLpathData(flFile,pathStrt,pathEnd,crdsOnly=False):
     dtStr = np.char.mod('%d',dtNum)
     flDT = np.asarray([dt.strptime(fDate,'%Y%m%d%H%M%S') for fDate in dtStr])
     
-    
-    strtIx = np.squeeze(np.where(flDT == pathStrt))
-    endIx = np.squeeze(np.where(flDT == pathEnd))
+    if pathStrt == 0 and pathEnd == -1:
+        strtIx = 0
+        endIx = -2
+    else:
+        strtIx = np.squeeze(np.where(flDT == pathStrt))
+        endIx = np.squeeze(np.where(flDT == pathEnd))
     
     dtPath = flDT[strtIx:endIx+1]
     latPath = lat[strtIx:endIx+1]
